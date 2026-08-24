@@ -1,0 +1,34 @@
+---
+import { TEAM } from '../consts';
+---
+
+<section id="nosotros">
+  <div class="section-head center reveal">
+    <div class="section-tag">Equipo profesional</div>
+    <h2>Distintas especialidades, una misma estrategia.</h2>
+  </div>
+  <div class="team-grid reveal">
+    {
+      TEAM.map((member) => (
+        <div class="team-card">
+          <div class="team-photo">
+            {member.photo ? (
+              <img src={member.photo} alt={member.name} loading="lazy" decoding="async" />
+            ) : (
+              <span class="initials">{member.initials}</span>
+            )}
+          </div>
+          <div class="info">
+            <h4>
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                {member.name}
+              </a>
+            </h4>
+            <span>{member.role}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="team-strap reveal">"Un mismo camino, distintas miradas al servicio de tu empresa."</div>
+</section>

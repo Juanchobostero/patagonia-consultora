@@ -1,0 +1,60 @@
+---
+import { GOOGLE_FORM_URL } from '../consts';
+---
+
+<section class="hero" id="inicio">
+  <div class="hero-grid">
+    <div class="hero-text reveal">
+      <div class="eyebrow">PyMEs proveedoras y contratistas · Vaca Muerta</div>
+      <h1>Ordenamos procesos, reducimos riesgos y <em>fortalecemos</em> la gestión de tu empresa.</h1>
+      <p class="lead">
+        Acompañamos a Empresas en la organización documental, administrativa, contable, laboral y legal
+        necesaria para responder a las exigencias del sector Oil &amp; Gas. Desde la preparación inicial
+        hasta el seguimiento de la operación, trabajamos de manera coordinada para que tu empresa avance
+        con mayor orden, cumplimiento y respaldo profesional.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn-navy-solid" href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">Solicitar una reunión</a>
+        <a class="btn-outline-light" href="#soluciones">Conocé nuestras soluciones</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.6A7 7 0 0 0 5 9.4C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9" r="2.2"/></svg>
+          Neuquén, Argentina
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-5 7-5s7 1.7 7 5"/><circle cx="17" cy="8" r="2.6"/></svg>
+          Atención presencial y remota
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg>
+          Confidencialidad y compromiso
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-media reveal">
+      <div class="hero-photo">
+        <img
+          src="/images/hero-neuquen.jpg"
+          alt="Lago Correntoso, paisaje con agua en la provincia del Neuquén"
+          width="1139"
+          height="670"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <a
+        class="photo-credit"
+        href="https://commons.wikimedia.org/wiki/File:Lago_Correntoso,_Provincia_del_Neuqu%C3%A9n.jpg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Foto: Bandurrias / Wikimedia Commons (CC BY-SA 4.0)
+      </a>
+      <div class="hero-quote">
+        <p>Detectamos lo que tu empresa necesita ordenar para <em>crecer con seguridad.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
