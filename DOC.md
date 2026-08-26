@@ -36,12 +36,17 @@ src/
 
 public/
 ├── logo.png                 # Logo completo extraído del mockup (isotipo + wordmark)
+├── og-image.jpg              # Imagen para vista previa en redes (og:image / twitter:image, 1200×630)
+├── favicon.ico                # Favicon multi-resolución (16/32/48px), fallback para rastreadores
 ├── favicon-16x16.png         # Favicon (recorte del isotipo "PC" del logo real)
 ├── favicon-32x32.png
 ├── apple-touch-icon.png      # Ícono para iOS/Safari (180×180)
 ├── icon-512.png              # Versión grande del isotipo (uso futuro: PWA/manifest)
 ├── images/
-│   └── hero-neuquen.jpg      # Foto real del Lago Correntoso, Neuquén (ver sección 2)
+│   ├── hero-vaca-muerta.webp # Foto de portada del hero, recorte del collage (ver sección 2)
+│   ├── patagonia-image.webp  # Collage original de 4 fotos provisto por la clienta (sin usar directo)
+│   ├── cristina-image.webp   # Foto de equipo: Dra. Cristina Rodríguez
+│   └── patricia-image.webp   # Foto de equipo: Cra. Patricia Huenohueque
 └── robots.txt
 ```
 
@@ -65,34 +70,47 @@ Nota de consistencia: como se quitó "Gestión Contable y Administrativa" de
 Soluciones y de Servicios, también se removió la palabra "Contable" de la
 línea de tags del footer (`Footer.astro`).
 
-### Foto real del hero (pedido de la clienta)
+### Foto real del hero
 
-El fondo del hero era un paisaje ilustrado en SVG (placeholder del mockup).
-Se reemplazó por una foto real con paisaje de agua, a pedido de la clienta:
-**Lago Correntoso, provincia del Neuquén**, en `public/images/hero-neuquen.jpg`.
-
-(Primero se había probado con una foto de las bardas de Plottier —sin
-agua—, pero se cambió por esta a pedido explícito de mostrar "paisaje con
-agua".)
-
-- **Fuente:** Wikimedia Commons —
-  [File:Lago Correntoso, Provincia del Neuquén.jpg](https://commons.wikimedia.org/wiki/File:Lago_Correntoso,_Provincia_del_Neuqu%C3%A9n.jpg)
-- **Autor:** Bandurrias
-- **Licencia:** CC BY-SA 4.0 (uso comercial permitido, requiere atribución).
-  Por eso se agregó un crédito discreto en la esquina superior derecha de la
-  foto (`.photo-credit` en `Hero.astro`/`global.css`), enlazado a la fuente.
-- `Hero.astro`: se cambió el `<svg>` por un `<img>` dentro del mismo
-  `.hero-photo` (mismo contenedor, mismos difuminados `::before`/`::after`
-  de `global.css` — no se tocó nada más del layout).
-
-**Pendiente/opcional:** si la clienta prefiere una foto propia (tomada por
-ella, de un banco de imágenes pago, o con más "marca" del negocio — por
-ejemplo con alguna referencia a Vaca Muerta/Oil & Gas), alcanza con
-reemplazar `public/images/hero-neuquen.jpg` por la nueva imagen (mismo
-nombre de archivo o actualizando el `src` en `Hero.astro`) y quitar/ajustar
-el crédito si la nueva foto no lo requiere.
+El fondo del hero es una foto propia de la empresa (equipo en un yacimiento
+de Vaca Muerta al atardecer), provista por la clienta como
+`public/images/patagonia-image.webp` — un collage de 4 fotos en formato
+retrato (900×1600). A pedido de la clienta se recortó únicamente el panel
+superior (los dos profesionales con la campera de la marca y el equipo de
+perforación de fondo) como `public/images/hero-vaca-muerta.webp` (900×630),
+usado en `Hero.astro`. El archivo original (`patagonia-image.webp`) se dejó
+en `public/images/` por si más adelante quieren usar otro de los paneles
+del collage. No requiere atribución de terceros al ser una foto propia, por
+lo que no lleva crédito.
 
 Todas las capturas se pudieron leer con claridad — no hubo ninguna anotación dudosa.
+
+## 2.1 Correcciones — `Correciones.pdf` (2026-08-26)
+
+La clienta envió un PDF con textos resaltados/tachados a mano para una
+segunda ronda de ajustes. Se implementaron los 7 puntos:
+
+| # | Pedido | Cambio aplicado |
+|---|--------|------------------|
+| 1 | Reemplazar el párrafo de "El desafío" | Nuevo texto en `Challenge.astro` (los dos `<p>` de `.challenge-right`). |
+| 2 | Reemplazar la cita destacada de "El desafío" | Nuevo texto en `.challenge-quote` (`Challenge.astro`). |
+| 3 | Reemplazar título/copy del CTA final | `CtaFinal.astro`: nuevo `<h2>` ("¿Tu empresa está preparada para las exigencias de Vaca Muerta?"), nueva bajada ("Conversemos sobre sus objetivos."), nuevo párrafo, y se agregó la firma "PATAGONIA CONSULTORA · Gestión · Control · Cumplimiento" al pie del bloque (`.cta-signature` en `global.css`). |
+| 4 | En las tarjetas del equipo, dejar solo la profesión (sin especialidad) | `TEAM` en `consts.ts`: Cristina Rodríguez → *"Abogada"*; Patricia Huenohueque → *"Contadora Pública Nacional"*. |
+| 5 | Quitar el tag "PyMEs proveedoras y contratistas · Vaca Muerta" del hero | Se eliminó el `<div class="eyebrow">` de `Hero.astro` y la clase `.eyebrow` (sin uso) de `global.css`. |
+| 6 | Agregar ícono + link de Instagram | Se agregó `SOCIAL.instagram` en `consts.ts` (`instagram.com/patagoniaconsultoranqn`) y el ícono correspondiente en `Footer.astro` / `.social-instagram` en `global.css`, con el mismo patrón que WhatsApp/LinkedIn. |
+| 7 | Cambiar la foto de portada (hero) | Ver "Foto real del hero" arriba — ahora usa `public/images/hero-vaca-muerta.webp`. |
+
+### Número de WhatsApp (fuera del PDF, ida y vuelta por chat)
+
+El número original provisto (`299578813`, 9 dígitos) nunca llegó a
+funcionar en WhatsApp, ni con el `9` (`wa.me/549299578813`) ni sin él
+(`wa.me/54299578813`) — el problema no era el formato del link, sino que
+faltaba un dígito: el número real de WhatsApp es **2995788713** (10
+dígitos). Quedó configurado como:
+
+- `SOCIAL.whatsapp` (`consts.ts`): `https://wa.me/5492995788713`
+- `SITE.phoneDisplay` (`consts.ts`): `+54 9 2995 78-8713`
+- Link `tel:` del footer (`Footer.astro`): `tel:+5492995788713`
 
 ### Navegación por ancla sin `#hash` en la URL
 
@@ -134,22 +152,37 @@ En `src/layouts/Layout.astro` y `src/consts.ts`:
 
 - `<title>` y `<meta name="description">` específicos del negocio.
 - Etiqueta canónica (`rel=canonical`) generada dinámicamente con `Astro.site`.
-- Open Graph completo (`og:title`, `og:description`, `og:image`, `og:type`, `og:locale`, `og:site_name`).
+- Open Graph completo (`og:title`, `og:description`, `og:image` +
+  `og:image:width`/`height`/`alt`, `og:type`, `og:locale`, `og:site_name`).
 - Twitter Card (`summary_large_image`).
-- JSON-LD `ProfessionalService` (nombre, descripción, área de servicio, dirección en Neuquén, áreas de conocimiento).
+- JSON-LD `ProfessionalService` (nombre, descripción, área de servicio,
+  dirección en Neuquén, `logo`, `image`, `sameAs` con LinkedIn e Instagram,
+  áreas de conocimiento).
 - `robots.txt` + sitemap automático (`@astrojs/sitemap`, se genera en cada build).
 - `lang="es"` en `<html>`, `theme-color` de marca.
 - Imágenes con `width`/`height` explícitos para evitar layout shift.
 - **Favicon con el logo real**: se recortó el isotipo "PC" del `logo.png`
   original (esquina superior izquierda del logo, sin el texto "Patagonia
-  Consultora") y se generaron `favicon-16x16.png`, `favicon-32x32.png` y
-  `apple-touch-icon.png`, referenciados en `Layout.astro`. Así la pestaña
-  del navegador muestra el logo de la marca en vez de un ícono genérico.
+  Consultora") y se generaron `favicon-16x16.png`, `favicon-32x32.png`,
+  `apple-touch-icon.png` y un `favicon.ico` multi-resolución (16/32/48px),
+  todos referenciados en `Layout.astro`. Así la pestaña del navegador
+  muestra el logo de la marca en vez de un ícono genérico, y los
+  rastreadores/clientes que piden `/favicon.ico` directo también lo
+  encuentran.
+- **Imagen OG dedicada** (`public/og-image.jpg`, 1200×630): compuesta a
+  partir de la foto real del hero (`hero-vaca-muerta.webp`) más el logo en
+  una placa blanca y el copy "Soluciones integrales para empresas en Vaca
+  Muerta · Neuquén, Argentina". Reemplaza el uso anterior de `logo.png`
+  (apaisado, no pensado para vista previa de redes) como `og:image` /
+  `twitter:image`.
 
-**Pendiente antes de indexar en producción:**
-- Confirmar el dominio final y actualizarlo en `astro.config.mjs` (`site:`) y en `src/consts.ts` (`SITE.url`) — hoy están con el placeholder `https://patagoniaconsultora.com.ar`.
-- Diseñar una imagen OG dedicada de 1200×630 (hoy se reutiliza `logo.png`, que es apaisado y no ideal para redes sociales).
-- Dar de alta el sitio en Google Search Console una vez esté el dominio definitivo.
+**Pendiente antes de indexar en producción (no depende del código):**
+- Confirmar que el dominio `patagoniaconsultora.com.ar` quede conectado en
+  Vercel — `astro.config.mjs` (`site:`) y `src/consts.ts` (`SITE.url`) ya
+  están configurados con ese dominio.
+- Dar de alta el sitio en Google Search Console y enviar el sitemap
+  (`https://patagoniaconsultora.com.ar/sitemap-index.xml`) una vez esté el
+  dominio definitivo.
 
 ---
 
@@ -170,21 +203,21 @@ a través de la constante `GOOGLE_FORM_URL` en `src/consts.ts`.
   profesionales — el nombre de cada tarjeta es un link a su perfil:
   - Dra. Cristina Rodríguez (Abogada) — [linkedin.com/in/rodriguezscristina](https://www.linkedin.com/in/rodriguezscristina)
   - Cra. Patricia Huenohueque (Contadora Pública) — [linkedin.com/in/patricia-huenohueque-070b2827b](https://www.linkedin.com/in/patricia-huenohueque-070b2827b)
-- **Teléfono/WhatsApp de la consultora** (`299578813`): ahora
+- **Teléfono/WhatsApp de la consultora** (`+54 9 2995 78-8713`): ahora
   `SOCIAL.whatsapp` en `src/consts.ts` apunta a
-  `https://wa.me/549299578813` (botón flotante y footer), y se agregó
-  `SITE.phoneDisplay` (`+54 299 578-813`) como link `tel:` en el footer y
-  en el JSON-LD de SEO.
+  `https://wa.me/5492995788713` (ver sección 2.1 — el número original que
+  nos habían pasado estaba incompleto) (botón flotante y footer), y se
+  agregó `SITE.phoneDisplay` como link `tel:` en el footer y en el JSON-LD
+  de SEO.
 - **Íconos de redes en el footer**: los links de contacto del footer (antes
   texto plano) ahora son íconos circulares con el color de marca de cada
   red — ver `.footer-social` en `global.css` y `Footer.astro`.
-  - **WhatsApp** (verde `#25D366`): usa el número real, `wa.me/549299578813`.
+  - **WhatsApp** (verde `#25D366`): usa el número real, `wa.me/5492995788713`.
   - **LinkedIn** (azul `#0A66C2`): apunta a la página de la empresa
     (`SOCIAL.linkedin` en `src/consts.ts`,
     `linkedin.com/company/patagonia-consultora-soluciones-integrales`).
-  - **Instagram**: se quitó del footer (no hay cuenta todavía). Cuando la
-    creen, se vuelve a agregar el ícono siguiendo el mismo patrón que
-    WhatsApp/LinkedIn en `Footer.astro`.
+  - **Instagram**: `SOCIAL.instagram` en `src/consts.ts`
+    (`instagram.com/patagoniaconsultoranqn`) — ver sección 2.1.
 - **No se usó (por ahora)**: la universidad de cada profesional (UNNE /
   Universidad Nacional de Quilmes) no tiene un lugar en el diseño actual de
   las tarjetas de equipo — quedan solo nombre + rol, igual que en el
@@ -198,8 +231,6 @@ a través de la constante `GOOGLE_FORM_URL` en `src/consts.ts`.
 
 ### Todavía pendiente (no vino en `datos-patagonia.txt`)
 
-- **Instagram de la empresa**: no hay cuenta todavía; el ícono se quitó del
-  footer hasta que la creen (ver nota arriba).
 - **Dominio definitivo**: ver sección 3.
 
 ---
